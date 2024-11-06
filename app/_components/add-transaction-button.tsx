@@ -7,8 +7,10 @@ import {
   TransactionType,
 } from "@prisma/client";
 import { ArrowDownUpIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addTransaction } from "../_actions/add-transaction";
 import {
   TRANSACTION_CATEGORY_OPTIONS,
   TRANSACTION_PAYMENT_METHOD_OPTIONS,
@@ -55,7 +57,7 @@ const formSchemaTransaction = z.object({
   category: z.nativeEnum(TransactionCategory, {
     required_error: "A categoria é obrigatório",
   }),
-  paymentsMethod: z.nativeEnum(TransactionPaymentMethod, {
+  paymentMethod: z.nativeEnum(TransactionPaymentMethod, {
     required_error: "O método de pagamento é obrigatório",
   }),
   date: z.date({
@@ -66,6 +68,8 @@ const formSchemaTransaction = z.object({
 type FormSchema = z.infer<typeof formSchemaTransaction>;
 
 const AddTransactionButton = () => {
+  const [dialogIsOpen, setIsDialogIsOpen] = useState(false);
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchemaTransaction),
     defaultValues: {
@@ -73,17 +77,32 @@ const AddTransactionButton = () => {
       amount: "",
       type: TransactionType.EXPENSE,
       category: TransactionCategory.FOOD,
-      paymentsMethod: TransactionPaymentMethod.CASH,
+      paymentMethod: TransactionPaymentMethod.CASH,
       date: new Date(),
     },
   });
 
-  function onSubmit(data: FormSchema) {
-    console.log(data);
+  async function onSubmit(data: FormSchema) {
+    try {
+      // Retirar o R$ e transformar para number  amount: 'R$ 43.434'
+      const amount = Number.parseFloat(data.amount.replace("R$ ", ""));
+      // Fazer com que o amount fique com decimal ao enviar para a API
+      // console.log(data, amount);
+      await addTransaction({
+        ...data,
+        amount,
+      });
+      form.reset();
+      setIsDialogIsOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <Dialog
+      open={dialogIsOpen}
       onOpenChange={(open) => {
+        setIsDialogIsOpen(open);
         if (!open) form.reset();
       }}
     >
@@ -188,7 +207,7 @@ const AddTransactionButton = () => {
 
             <FormField
               control={form.control}
-              name="paymentsMethod"
+              name="paymentMethod"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Método de pagamento</FormLabel>
