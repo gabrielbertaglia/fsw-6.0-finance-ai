@@ -18,6 +18,8 @@ export const MoneyInput = forwardRef(
         allowNegative={false}
         customInput={Input}
         getInputRef={ref}
+        decimalScale={2}
+        fixedDecimalScale
       />
     );
   },

@@ -99,10 +99,9 @@ const UpsertTransactionDialog = ({
 
   async function onSubmit(data: FormSchema) {
     try {
-      // Retirar o R$ e transformar para number  amount: 'R$ 43.434'
-      const amount = Number.parseFloat(data.amount.replace("R$ ", ""));
-      // Fazer com que o amount fique com decimal ao enviar para a API
-      // console.log(data, amount);
+      const amount = Number.parseFloat(
+        data.amount.replace("R$ ", "").replace(".", "").replace(",", "."),
+      );
       await upsertTransaction({
         ...data,
         id: transactionId,
