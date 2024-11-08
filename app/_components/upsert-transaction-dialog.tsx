@@ -87,14 +87,14 @@ const UpsertTransactionDialog = ({
       paymentMethod: TransactionPaymentMethod.CASH,
       date: new Date(),
     },
-    values: {
-      name: defaultValues?.name ?? "",
-      amount: defaultValues?.amount ?? "",
-      category: defaultValues?.category ?? "EDUCATION",
-      date: defaultValues?.date ?? new Date(),
-      paymentMethod: defaultValues?.paymentMethod ?? "BANK_SLIP",
-      type: defaultValues?.type ?? "DEPOSIT",
-    },
+    // values: {
+    //   name: defaultValues?.name ?? "",
+    //   amount: defaultValues?.amount ?? "",
+    //   category: defaultValues?.category ?? "EDUCATION",
+    //   date: defaultValues?.date ?? new Date(),
+    //   paymentMethod: defaultValues?.paymentMethod ?? "BANK_SLIP",
+    //   type: defaultValues?.type ?? "DEPOSIT",
+    // },
   });
 
   async function onSubmit(data: FormSchema) {
