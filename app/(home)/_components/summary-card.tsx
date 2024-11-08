@@ -7,15 +7,17 @@ interface SummaryCardProps {
   title: string;
   amount: number;
   size?: "small" | "large";
+  colored?: boolean;
 }
 export const SummaryCard = ({
   icon,
   title,
   amount,
   size = "small",
+  colored,
 }: SummaryCardProps) => {
   return (
-    <Card>
+    <Card className={`${colored ? "bg-white bg-opacity-5" : ""}`}>
       <CardHeader className="flex-row items-center gap-4 space-y-0">
         {icon}
         <p

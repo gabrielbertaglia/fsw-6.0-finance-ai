@@ -2,8 +2,10 @@ import { auth } from "@clerk/nextjs/server";
 import { isMatch } from "date-fns";
 import { redirect } from "next/navigation";
 import { NavBar } from "../_components/navbar";
+import { getDashboard } from "../_data/get-dashboard";
 import { SummaryCards } from "./_components/summary-cards";
 import { TimeSelect } from "./_components/time-select";
+import { TransactionsPieChart } from "./_components/transactions-pie-chart";
 
 interface HomeProps {
   searchParams: { month: string };
@@ -21,6 +23,8 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
     redirect(`?month=${new Date().getMonth() + 1}`);
   }
 
+  const dashboard = await getDashboard(month);
+
   return (
     <>
       <NavBar />
@@ -31,9 +35,9 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
         </div>
         <div className="grid h-full grid-cols-[2fr,1fr] gap-6 overflow-hidden">
           <div className="flex flex-col gap-6 overflow-hidden">
-            <SummaryCards month={month} />
+            <SummaryCards {...dashboard} />
             <div className="grid h-full grid-cols-3 grid-rows-1 gap-6 overflow-hidden">
-              {/* <TransactionsPieChart {...dashboard} /> */}
+              <TransactionsPieChart {...dashboard} />
               {/* <ExpensesPerCategory
                 expensesPerCategory={dashboard.totalExpensePerCategory}
               /> */}
