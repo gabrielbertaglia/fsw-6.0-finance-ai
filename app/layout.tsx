@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
 import "./globals.css";
@@ -26,7 +27,11 @@ export default function RootLayout({
             baseTheme: dark,
           }}
         >
-          <div className="flex h-full flex-col overflow-hidden">{children}</div>
+          <TooltipProvider>
+            <div className="flex h-full flex-col overflow-hidden">
+              {children}
+            </div>
+          </TooltipProvider>
         </ClerkProvider>
       </body>
     </html>

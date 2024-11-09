@@ -1,5 +1,6 @@
 import AddTransactionButton from "@/app/_components/add-transaction-button";
 import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
+import { canUserAddTransaction } from "@/app/_data/can-user-add-transaction";
 import type { ReactNode } from "react";
 
 interface SummaryCardProps {
@@ -9,13 +10,15 @@ interface SummaryCardProps {
   size?: "small" | "large";
   colored?: boolean;
 }
-export const SummaryCard = ({
+export const SummaryCard = async ({
   icon,
   title,
   amount,
   size = "small",
   colored,
 }: SummaryCardProps) => {
+  const userCanAddTransaction = await canUserAddTransaction();
+
   return (
     <Card className={`${colored ? "bg-white bg-opacity-5" : ""}`}>
       <CardHeader className="flex-row items-center gap-4 space-y-0">
@@ -40,7 +43,9 @@ export const SummaryCard = ({
           }).format(amount)}
         </p>
 
-        {size === "large" && <AddTransactionButton />}
+        {size === "large" && (
+          <AddTransactionButton userCanAddTransaction={userCanAddTransaction} />
+        )}
       </CardContent>
     </Card>
   );
