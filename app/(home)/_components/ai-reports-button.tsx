@@ -101,7 +101,7 @@ export const AiReportButton = ({
                   </Button>
                 </DialogClose>
                 <Button asChild>
-                  <Link href="/subscription">Assianr plano premium</Link>
+                  <Link href="/subscription">Assinar plano premium</Link>
                 </Button>
               </DialogFooter>
             </>
