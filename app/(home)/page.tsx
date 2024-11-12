@@ -19,7 +19,7 @@ interface HomeProps {
 const Home = async ({ searchParams: { month } }: HomeProps) => {
   const { userId } = await auth();
   if (!userId) {
-    redirect("/login");
+    redirect("/signin");
   }
   const monthIsInvalid = !month || !isMatch(month, "MM");
   if (monthIsInvalid) {
