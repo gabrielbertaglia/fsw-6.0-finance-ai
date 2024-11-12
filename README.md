@@ -21,10 +21,6 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- ReactJS
-- NodeJS
-- TypeScript
-- Shadcn
-- Tailwind
-- Prisma
-- Postgres
+<p align="center">
+  ReactJS | NodeJS | TypeScript | Prisma | Shadcn | Tailwind | Postgres | Stripe | Clerk | Gemini
+</p>
