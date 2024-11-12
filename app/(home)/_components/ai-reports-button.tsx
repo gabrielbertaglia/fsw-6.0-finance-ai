@@ -34,16 +34,13 @@ export const AiReportButton = ({
     try {
       setReportIsLoading(true);
       const report = await generateAiReport(month);
-      console.log({ report });
       setReport(report);
-      console.log(report);
     } catch (error) {
       console.error(error);
     } finally {
       setReportIsLoading(false);
     }
   };
-  console.log({ report });
   return (
     <>
       <Dialog>
