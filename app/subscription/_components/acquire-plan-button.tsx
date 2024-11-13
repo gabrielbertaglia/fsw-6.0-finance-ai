@@ -40,6 +40,7 @@ export const AcquirePlanButton = () => {
     <Button
       className="w-full rounded-full font-bold"
       onClick={handleAcquirePlan}
+      disabled
     >
       Adquirir plano
     </Button>

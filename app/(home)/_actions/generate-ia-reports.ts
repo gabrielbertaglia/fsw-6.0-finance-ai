@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/app/_lib/prisma";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 // import OpenAI from "openai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { isMatch } from "date-fns";
@@ -13,11 +13,11 @@ export const generateAiReport = async (month: string) => {
   if (!userId) {
     throw new Error("Unauthorized");
   }
-  const user = await clerkClient().users.getUser(userId);
-  const userHasPremiumPlan = user.publicMetadata.subscriptionPlan === "premium";
-  if (!userHasPremiumPlan) {
-    throw new Error("User has no premium plan");
-  }
+  // const user = await clerkClient().users.getUser(userId);
+  // const userHasPremiumPlan = user.publicMetadata.subscriptionPlan === "premium";
+  // if (!userHasPremiumPlan) {
+  //   throw new Error("User has no premium plan");
+  // }
 
   if (!process.env.API_KEY) {
     await new Promise((resolve) => setTimeout(resolve, 300));
